@@ -4,7 +4,6 @@ import flixel.tweens.misc.ColorTween;
 import flixel.math.FlxRandom;
 import openfl.net.FileFilter;
 import openfl.filters.BitmapFilter;
-import Shaders.PulseEffect;
 import Section.SwagSection;
 import Song.SwagSong;
 import flixel.FlxBasic;
@@ -43,8 +42,8 @@ import openfl.display.BlendMode;
 import openfl.display.StageQuality;
 import openfl.filters.ShaderFilter;
 import flash.system.System; 
-import Shaders;
-#if desktop
+import Shaders
+#if windows
 import Discord.DiscordClient;
 #end
 
@@ -112,7 +111,6 @@ class PlayState extends MusicBeatState
 	public static var curmult:Array<Float> = [1, 1, 1, 1];
 
 	public var curbg:FlxSprite;
-	public static var screenshader:Shaders.PulseEffect = new PulseEffect();
 	public var UsingNewCam:Bool = false;
 
 	public var elapsedtime:Float = 0;
