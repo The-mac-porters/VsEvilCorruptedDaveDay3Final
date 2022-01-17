@@ -42,7 +42,6 @@ import openfl.display.BlendMode;
 import openfl.display.StageQuality;
 import openfl.filters.ShaderFilter;
 import flash.system.System; 
-import Shaders
 #if windows
 import Discord.DiscordClient;
 #end
