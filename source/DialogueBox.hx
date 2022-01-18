@@ -422,18 +422,6 @@ class DialogueBox extends FlxSpriteGroup
 		}
 		switch (curMod)
 		{
-			case 'distort':
-			case 'undistort':
-			case 'distortbg':
-				curshader = shad;
-				shad.waveAmplitude = 0.1;
-				shad.waveFrequency = 5;
-				shad.waveSpeed = 2;
-				if (curCharacter != 'generic')
-				{
-					portraitLeft.shader = shad.shader;
-					portraitRight.shader = shad.shader;
-				}
 			case 'setfont_normal':
 				dropText.font = 'Comic Sans MS Bold';
 				swagDialogue.font = 'Comic Sans MS Bold';
