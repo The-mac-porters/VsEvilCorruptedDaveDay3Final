@@ -329,7 +329,7 @@ class PlayState extends MusicBeatState
 		curStage = "";
 
 		// Updating Discord Rich Presence.
-		#if desktop
+		#if windows
 		DiscordClient.changePresence(SONG.song,
 			"\nAcc: "
 			+ truncateFloat(accuracy, 2)
@@ -399,11 +399,6 @@ class PlayState extends MusicBeatState
 			}
 		}
 		var gfVersion:String = 'gf';
-
-		screenshader.waveAmplitude = 1;
-		screenshader.waveFrequency = 2;
-		screenshader.waveSpeed = 1;
-		screenshader.shader.uTime.value[0] = new flixel.math.FlxRandom().float(-100000, 100000);
 		var charoffsetx:Float = 0;
 		var charoffsety:Float = 0;
 		if (formoverride == "bf-pixel"
@@ -880,7 +875,6 @@ class PlayState extends MusicBeatState
 
 				scaryBG = new FlxSprite(-350, -375).loadGraphic(Paths.image('bambi/yeah'));
 				scaryBG.scale.set(2, 2);
-				var testshader3:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader3.waveAmplitude = 0.25;
 				testshader3.waveFrequency = 10;
 				testshader3.waveSpeed = 3;
@@ -894,7 +888,6 @@ class PlayState extends MusicBeatState
 				//swagBG.scrollFactor.set(0, 0);
 				swagBG.scale.set(1.75, 1.75);
 				//swagBG.updateHitbox();
-				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader.waveAmplitude = 0.1;
 				testshader.waveFrequency = 1;
 				testshader.waveSpeed = 2;
@@ -905,7 +898,6 @@ class PlayState extends MusicBeatState
 
 				unswagBG = new FlxSprite(-600, -200).loadGraphic(Paths.image('bambi/poop'));
 				unswagBG.scale.set(1.75, 1.75);
-				var testshader2:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader2.waveAmplitude = 0.1;
 				testshader2.waveFrequency = 5;
 				testshader2.waveSpeed = 2;
@@ -1036,7 +1028,6 @@ class PlayState extends MusicBeatState
 				}
 				// below code assumes shaders are always enabled which is bad
 				// i wouldnt consider this an eyesore though
-				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader.waveAmplitude = 0.1;
 				testshader.waveFrequency = 5;
 				testshader.waveSpeed = 2;
@@ -1370,7 +1361,7 @@ class PlayState extends MusicBeatState
 
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
-		#if desktop
+		#if windows
 		DiscordClient.changePresence(SONG.song,
 			"\nAcc: "
 			+ truncateFloat(accuracy, 2)
@@ -1381,7 +1372,6 @@ class PlayState extends MusicBeatState
 		#end
 		FlxG.sound.music.onComplete = endSong;
 	}
-
 	var debugNum:Int = 0;
 	var isFunnySong = false;
 
@@ -1703,7 +1693,7 @@ class PlayState extends MusicBeatState
 				vocals.pause();
 			}
 
-			#if desktop
+			#if windows
 			DiscordClient.changePresence("PAUSED on "
 				+ SONG.song,
 				"Acc: "
@@ -1749,7 +1739,7 @@ class PlayState extends MusicBeatState
 				}
 				else
 				{
-					#if desktop
+					#if windows
 					DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ") ", iconRPC);
 					#end
 				}
@@ -1767,7 +1757,7 @@ class PlayState extends MusicBeatState
 		vocals.time = Conductor.songPosition;
 		vocals.play();
 
-		#if desktop
+		#if windows
 		DiscordClient.changePresence(detailsText
 			+ " "
 			+ SONG.song,
@@ -1831,7 +1821,6 @@ class PlayState extends MusicBeatState
 		{
 			if (curbg.active) // only the furiosity background is active
 			{
-				var shad = cast(curbg.shader, Shaders.GlitchShader);
 				shad.uTime.value[0] += elapsed;
 			}
 		}
@@ -2246,22 +2235,17 @@ class PlayState extends MusicBeatState
 
 		FlxG.watch.addQuick("WHAT", Conductor.songPosition);
 			
-		FlxG.camera.setFilters([new ShaderFilter(screenshader.shader)]); // this is very stupid but doesn't effect memory all that much so
 		if (shakeCam && eyesoreson)
 		{
 			// var shad = cast(FlxG.camera.screen.shader,Shaders.PulseShader);
 			FlxG.camera.shake(0.015, 0.015);
 		}
-		screenshader.shader.uTime.value[0] += elapsed;
 		if (shakeCam && eyesoreson)
 		{
-			screenshader.shader.uampmul.value[0] = 1;
 		}
 		else
 		{
-			screenshader.shader.uampmul.value[0] -= (elapsed / 2);
 		}
-		screenshader.Enabled = shakeCam && eyesoreson;
 
 		if (FlxG.keys.justPressed.NINE && iconP1.charPublic != 'bandu-origin')
 		{
@@ -2314,7 +2298,7 @@ class PlayState extends MusicBeatState
 					PlayState.characteroverride = 'none';
 					PlayState.formoverride = 'none';
 					FlxG.switchState(new ChartingState());
-					#if desktop
+					#if windows
 					DiscordClient.changePresence("Chart Editor", null, null, true);
 					#end
 			}
@@ -2456,8 +2440,6 @@ class PlayState extends MusicBeatState
 				vocals.stop();
 				FlxG.sound.music.stop();
 	
-				screenshader.shader.uampmul.value[0] = 0;
-				screenshader.Enabled = false;
 			}
 
 			if(shakeCam)
@@ -2472,7 +2454,7 @@ class PlayState extends MusicBeatState
 					openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition()
 						.y, formoverride == "bf" || formoverride == "none" ? SONG.player1 : formoverride));
 
-						#if desktop
+						#if windows
 						DiscordClient.changePresence("GAME OVER -- "
 						+ SONG.song
 						+ " ("
@@ -2509,7 +2491,7 @@ class PlayState extends MusicBeatState
 						openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition()
 							.y, formoverride == "bf" || formoverride == "none" ? SONG.player1 : formoverride));
 
-							#if desktop
+							#if windows
 							DiscordClient.changePresence("GAME OVER - "
 							+ SONG.song,
 							"\nAcc: "
@@ -3623,7 +3605,7 @@ class PlayState extends MusicBeatState
 			// dad.dance();
 		}
 
-		#if desktop
+		#if windows
 		DiscordClient.changePresence(SONG.song,
 			"Acc: "
 			+ truncateFloat(accuracy, 2)
